@@ -6,10 +6,10 @@ import { Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Login = () => {
-    const { userInfo, logIn, isLoading, setIsLoading } = useContext(AuthContext)  
+    const { userInfo, logIn, setIsLoading } = useContext(AuthContext)  
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const router = useRouter();
@@ -36,9 +36,6 @@ const Login = () => {
 
     return (
         <div className="bg-[url(/login.jpg)] bg-cover h-screen flex items-center justify-center">
-            <Modal open={isLoading}>
-                <CircularProgress className='absolute top-[50%] left-[50%]' size='60px' />
-            </Modal>
             <div className="bg-[#FFFFFFCC] p-10 w-[400px] rounded-md">
                 <div className="flex justify-center items-center mb-4 flex-col">
                     <Typography variant="h4">Users manager</Typography>

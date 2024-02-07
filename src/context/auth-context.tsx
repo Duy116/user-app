@@ -1,6 +1,7 @@
 'use client';
 
 import { Auth } from '@/type';
+import { Modal, CircularProgress } from '@mui/material';
 import React from 'react';
 import { createContext } from 'react';
 
@@ -35,5 +36,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         setUserInfo(undefined);
     };
 
-    return <AuthContext.Provider value={{ userInfo, isLoading, setIsLoading, logIn, logOut }}> { children } </AuthContext.Provider>;
+    return (
+        <>
+            <Modal open={isLoading}>
+                <CircularProgress className='absolute top-[50%] left-[50%]' size='60px' />
+            </Modal>
+            <AuthContext.Provider value={{ userInfo, isLoading, setIsLoading, logIn, logOut }}>
+                {children}
+            </AuthContext.Provider>
+        </>
+    );
 }
