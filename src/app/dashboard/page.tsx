@@ -86,6 +86,9 @@ const Dashboard = () => {
                     <IconButton onClick={() => {
                         setOpenEdit(true)
                         setEditUser(params.row)
+                        formik.setFieldValue('first_name', params.row.first_name)
+                        formik.setFieldValue('last_name', params.row.last_name)
+                        formik.setFieldValue('email', params.row.email)
                     }}>
                         <EditIcon />
                     </IconButton>
@@ -152,26 +155,26 @@ const Dashboard = () => {
                             <Typography>First Name:</Typography>
                         </Grid>
                         <Grid item xs={9}>
-                            <TextField className="[&_.MuiInputBase-root]:h-10 w-full" />
+                            <TextField className="[&_.MuiInputBase-root]:h-10 w-full" value={formik.values.first_name} onChange={formik.handleChange}/>
                         </Grid>
                         <Grid item xs={3}>
                             <Typography>Last Name:</Typography>
                         </Grid>
                         <Grid item xs={9}>
-                            <TextField className="[&_.MuiInputBase-root]:h-10 w-full" />
+                            <TextField className="[&_.MuiInputBase-root]:h-10 w-full" value={formik.values.last_name} onChange={formik.handleChange} />
                         </Grid>
                         <Grid item xs={3}>
                             <Typography>Email:</Typography>
                         </Grid>
                         <Grid item xs={9}>
-                            <TextField className="[&_.MuiInputBase-root]:h-10 w-full" />
+                            <TextField className="[&_.MuiInputBase-root]:h-10 w-full" value={formik.values.email} onChange={formik.handleChange} />
                         </Grid>
                     </Grid>
                     <div className="flex justify-end mt-4">
                         <Button variant="outlined" className="mr-4" onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button variant="contained" className="bg-[#1976d2]" onClick={handleEdit}>
+                        <Button variant="contained" className="bg-[#1976d2]" type='submit'>
                             Save
                         </Button>
                     </div>
