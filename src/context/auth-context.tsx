@@ -10,13 +10,8 @@ export type AuthContextType = {
     logOut: () => void;
 };
 
-const initialState = {
-    email: '',
-    password: ''
-};
-
 export const AuthContext = createContext<AuthContextType>({
-    userInfo: initialState,
+    userInfo: undefined,
     logIn: () => { },
     logOut: () => { }
 });
@@ -31,7 +26,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     };
 
     const logOut = () => {
-        setUserInfo(initialState);
+        setUserInfo(undefined);
     };
 
     return <AuthContext.Provider value={{ userInfo, logIn, logOut }}> { children } </AuthContext.Provider>;

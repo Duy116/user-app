@@ -14,6 +14,7 @@ export default function Home() {
       router.push('/login')
     }
   }, [userInfo])
+  
   return (
     <div className='fixed inset-0 bg-white z-[9999]'>
       <CircularProgress className='absolute top-[50%] left-[50%]' size='60px' />

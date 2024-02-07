@@ -10,11 +10,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <StyledEngineProvider injectFirst>
-        <AuthProvider>
-          <body>{children}</body>
-        </AuthProvider>
-      </StyledEngineProvider>
+      <body>
+        <StyledEngineProvider injectFirst>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </StyledEngineProvider>
+      </body>
     </html>
   );
 }
