@@ -47,9 +47,6 @@ const Login = () => {
                     </Grid>
                 </Grid>
                 <Button className="mt-4 w-full bg-[#0078d4]" variant="contained" onClick={handleLogIn}>Login</Button>
-                <div className="flex justify-center mt-2">
-                    <Typography className="underline text-[#0078d4] cursor-pointer">Don't have an account?</Typography>
-                </div>  
             </div>
         </div>
     )
