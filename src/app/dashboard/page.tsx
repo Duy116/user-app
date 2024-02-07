@@ -12,6 +12,8 @@ import axios from "axios";
 import Dialog from "@mui/material/Dialog";
 import { User } from "@/type";
 import CloseIcon from '@mui/icons-material/Close';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Dashboard = () => {
     const { userInfo, logOut } = useContext(AuthContext)
@@ -19,7 +21,7 @@ const Dashboard = () => {
 
     const [open, setOpen] = useState(false);
     const [users, setUsers] = useState<User[]>();
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [editUser, setEditUser] = useState<User>();
 
     const columns = [
@@ -110,7 +112,7 @@ const Dashboard = () => {
             <Dialog open={open} onClose={handleClose}>
                 <div className="p-5 w-[450px]">
                     <div className="flex items-center justify-between">
-                        <Typography>Edit user</Typography>
+                        <Typography variant="h6">Edit user</Typography>
                         <IconButton onClick={handleClose}><CloseIcon /></IconButton>
                     </div>
                     <Divider className="mb-5"/>
@@ -153,15 +155,25 @@ const Dashboard = () => {
                     </div>
                 </div>
             </Dialog>
-            <div className="bg-[#820695] w-full flex justify-between items-center p-2">
-                <Typography>
-                    Users app
-                </Typography>
-                <Button variant="contained" onClick={() => logOut()}>
-                    Log out
-                </Button>
+            <div className="bg-[#0078d4] w-full flex justify-between items-center p-5">
+                <div className="flex items-center ml-5">
+                    <AccountCircleIcon className="w-[32px] h-[32px]" sx={{ color: "white"}}/>
+                    <Typography variant="h5" className="text-white ml-2">
+                        Users manager
+                    </Typography>
+                </div>
+                <div className="flex items-center mr-5">
+                    <Typography className="text-white mr-5">
+                        Welcome {userInfo?.email}
+                    </Typography>
+                    <Button variant="outlined" className="bg-white hover:bg-[#eeeeee]" onClick={() => logOut()}>
+                        <LogoutIcon className="mr-2"/>
+                        Log out
+                    </Button>
+                </div>
             </div>
-            <div>
+            <div className="p-5">
+                <Typography variant="h6" className="my-2">Users list:</Typography>
                 <DataGrid paginationMode="server" onPaginationModelChange={(m) => setPage(m.page)} pageSizeOptions={[6]} paginationModel={{ page: page, pageSize: 6 }} rowCount={12} hideFooterSelectedRowCount disableColumnMenu columns={columns} rows={users || []} />
             </div>
         </>

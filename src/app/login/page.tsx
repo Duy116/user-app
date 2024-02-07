@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import Paper from '@mui/material/Paper';
 
 const Login = () => {
     const { userInfo, logIn } = useContext(AuthContext)  
@@ -25,8 +26,12 @@ const Login = () => {
     }
 
     return (
-        <div className="bg-white h-screen flex items-center justify-center">
-            <div className="bg-[#b7b7b7] p-5 w-[400px] rounded-md">
+        <div className="bg-[url(/login.jpg)] bg-cover h-screen flex items-center justify-center">
+            <div className="bg-[#FFFFFFCC] p-10 w-[400px] rounded-md">
+                <div className="flex justify-center items-center mb-4 flex-col">
+                    <Typography variant="h4">Users manager</Typography>
+                    <Typography variant="h6">Login</Typography>
+                </div>
                 <Grid container className="flex items-center justify-center" rowSpacing={2}>
                     <Grid item xs={3}>
                         <Typography className="text-black">Email</Typography>
@@ -41,9 +46,10 @@ const Login = () => {
                         <TextField className="[&_.MuiInputBase-root]:h-10 w-full" value={password} onChange={(e) => setPassword(e.target.value)}></TextField>
                     </Grid>
                 </Grid>
-                <div className="flex justify-end my-2">
-                    <Button variant="contained" onClick={handleLogIn}>Login</Button>
-                </div>
+                <Button className="mt-4 w-full bg-[#0078d4]" variant="contained" onClick={handleLogIn}>Login</Button>
+                <div className="flex justify-center mt-2">
+                    <Typography className="underline text-[#0078d4] cursor-pointer">Don't have an account?</Typography>
+                </div>  
             </div>
         </div>
     )
