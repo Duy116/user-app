@@ -14,15 +14,35 @@ import { User } from "@/type";
 import CloseIcon from '@mui/icons-material/Close';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DeleteIcon from '@mui/icons-material/Delete';
+import * as yup from 'yup';
+import { useFormik } from "formik";
 
 const Dashboard = () => {
     const { userInfo, logOut } = useContext(AuthContext)
     const router = useRouter();
 
-    const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
     const [users, setUsers] = useState<User[]>();
     const [page, setPage] = useState(0);
     const [editUser, setEditUser] = useState<User>();
+
+    const validationSchema = yup.object({
+        frist_name: yup.string().required('First Name is required!'),
+        last_name: yup.string().required('Last Name is required!'),
+        email: yup.string().required('Email is required!')
+    });
+
+    const formik = useFormik({
+        enableReinitialize: true,
+        initialValues: { first_name: '', last_name: '', email: '' },
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            if (values && values.first_name && values.last_name && values.email) {
+                handleClose();
+            }
+        }
+    });
 
     const columns = [
         {
@@ -57,16 +77,24 @@ const Dashboard = () => {
             type: 'string'
         },
         {
-            field: 'edit',
+            field: 'actions',
+            headerName: 'Actions',
             width: 200,
             type: 'actions',
             renderCell: (params) => (
-                <IconButton onClick={() => {
-                    setOpen(true)
-                    setEditUser(params.row)
-                }}>
-                    <EditIcon />
-                </IconButton>
+                <>
+                    <IconButton onClick={() => {
+                        setOpenEdit(true)
+                        setEditUser(params.row)
+                    }}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={() => {
+                        
+                    }}>
+                        <DeleteIcon />
+                    </IconButton>
+                </>
             )
         }
     ] as GridColDef[]
@@ -88,7 +116,7 @@ const Dashboard = () => {
     }, [userInfo])
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenEdit(false);
     }
     
     const handleEdit = () => {
@@ -109,7 +137,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={openEdit} onClose={handleClose}>
                 <div className="p-5 w-[450px]">
                     <div className="flex items-center justify-between">
                         <Typography variant="h6">Edit user</Typography>
@@ -120,12 +148,6 @@ const Dashboard = () => {
                         <Avatar src={editUser?.avatar} className="w-[100px] h-[100px] mb-5" />
                     </div>
                     <Grid container className="flex items-center" rowSpacing={2}>
-                        <Grid item xs={3}>
-                            <Typography>Id:</Typography>
-                        </Grid>
-                        <Grid item xs={9}>
-                            <TextField disabled className="[&_.MuiInputBase-root]:h-10 w-full"/>
-                        </Grid>
                         <Grid item xs={3}>
                             <Typography>First Name:</Typography>
                         </Grid>
